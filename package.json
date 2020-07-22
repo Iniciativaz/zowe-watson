@@ -1,0 +1,18 @@
+{
+  "name": "zowe-watson",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "William Pereira <william.pereira@me.com>",
+  "scripts": {
+    "dev": "nodemon src"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@zowe/cli": "^6.18.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}

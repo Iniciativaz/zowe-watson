@@ -1,0 +1,686 @@
+{
+  "intents": [
+    {
+      "intent": "send_uss_command",
+      "examples": [
+        {
+          "text": "I need to verify the zfs"
+        },
+        {
+          "text": "Can i check this file"
+        },
+        {
+          "text": "I want list my directory"
+        },
+        {
+          "text": "can i check a zfs"
+        },
+        {
+          "text": "i need to issue a uss command"
+        },
+        {
+          "text": "Is this mounted?"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "check_dataset_content",
+      "examples": [
+        {
+          "text": "can i get the contend of this pds"
+        },
+        {
+          "text": "What is inside of parmlib"
+        },
+        {
+          "text": "I want check a dataset"
+        },
+        {
+          "text": "i wanna read what is inside of this"
+        },
+        {
+          "text": "Can i get the content of this sequential"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "check_spool",
+      "examples": [
+        {
+          "text": "What is my spool utilization?"
+        },
+        {
+          "text": "Is it JES Spool full?"
+        },
+        {
+          "text": "How much space left in spool?"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "check_asm",
+      "examples": [
+        {
+          "text": "Want to check virtual storage"
+        },
+        {
+          "text": "How is paging on my system?"
+        },
+        {
+          "text": "Is page datasets full?"
+        },
+        {
+          "text": "How is ASM?"
+        },
+        {
+          "text": "What is the utilization of my Page Datasets?"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "issue_general_command",
+      "examples": [
+        {
+          "text": "hmmm what about cpu?"
+        },
+        {
+          "text": "I need to verify how many users are logged on"
+        },
+        {
+          "text": "May i send a display?"
+        },
+        {
+          "text": "I want to verify who is logged on"
+        },
+        {
+          "text": "Can i display time?"
+        },
+        {
+          "text": "issue a command"
+        },
+        {
+          "text": "Can you check some resource?"
+        },
+        {
+          "text": "Want to issue a mvs command"
+        },
+        {
+          "text": "I want to verify to users"
+        },
+        {
+          "text": "D M=STOR"
+        },
+        {
+          "text": "D M=CHP"
+        },
+        {
+          "text": "D U,,,5555,1"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "asm_command",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "D ASM",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "dsname",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "SYS1.PARMLIB(IEASYS00)",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "USER.PROCLIB(IZUPRM00)",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "SUPZOS.JCL(ZOSMF01)",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "spool_command",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "$DSPL",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "general_uss_command",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "cat file | grep -i something",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "ls -al",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "df -Pkv /global/zosmf",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "general_mvs_command",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "D M=CPU",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "D M=CHP",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "D IPLINFO",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "D A,L",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "D T",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "D U,,,1000,2",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "D U,DASD,ONLINE",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "webhooks": [
+    {
+      "url": "http://e8a8d5bab562.ngrok.io/zowe",
+      "name": "main_webhook",
+      "headers": []
+    }
+  ],
+  "dialog_nodes": [
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "What command you want me to send?"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "slot_7_1595370766593",
+      "event_name": "focus",
+      "dialog_node": "handler_7_1595370766614",
+      "previous_sibling": "handler_10_1595370766614"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_7_1595370766593",
+      "context": {
+        "command": "@general_mvs_command"
+      },
+      "conditions": "@general_mvs_command",
+      "event_name": "input",
+      "dialog_node": "handler_10_1595370766614"
+    },
+    {
+      "type": "response_condition",
+      "parent": "node_3_1595422306651",
+      "conditions": "anything_else",
+      "dialog_node": "response_1_1595422337180",
+      "previous_sibling": "response_10_1595422335348"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Response: <?$webhook_dataset.data?> "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1595422306651",
+      "conditions": "$webhook_dataset",
+      "dialog_node": "response_10_1595422335348"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "What Dataset?"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "slot_5_1595388842839",
+      "event_name": "focus",
+      "dialog_node": "handler_6_1595388842899",
+      "previous_sibling": "handler_2_1595388842899"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_5_1595388842839",
+      "context": {
+        "dsname": "@dsname"
+      },
+      "conditions": "@dsname",
+      "event_name": "input",
+      "dialog_node": "handler_2_1595388842899"
+    },
+    {
+      "type": "slot",
+      "parent": "node_1_1595388810344",
+      "variable": "$dsname",
+      "dialog_node": "slot_5_1595388842839",
+      "previous_sibling": "node_3_1595422306651"
+    },
+    {
+      "type": "standard",
+      "title": "webhook dataset",
+      "parent": "node_1_1595388810344",
+      "actions": [
+        {
+          "name": "main_webhook",
+          "type": "webhook",
+          "parameters": {
+            "dsname": "@dsname",
+            "intention": "READ_DATASET"
+          },
+          "result_variable": "webhook_dataset"
+        }
+      ],
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "@dsname",
+      "dialog_node": "node_3_1595422306651"
+    },
+    {
+      "type": "response_condition",
+      "parent": "node_6_1595419838977",
+      "conditions": "anything_else",
+      "dialog_node": "response_5_1595419965098",
+      "previous_sibling": "response_9_1595419963324"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Response: <?$webhook_mvs_command.data?> "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_6_1595419838977",
+      "conditions": "$webhook_mvs_command",
+      "dialog_node": "response_9_1595419963324"
+    },
+    {
+      "type": "response_condition",
+      "parent": "node_8_1595421235567",
+      "conditions": "anything_else",
+      "dialog_node": "response_6_1595421244241",
+      "previous_sibling": "response_5_1595421242526"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Response: <?$webhook_uss_command.data?> "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_8_1595421235567",
+      "conditions": "$webhook_uss_command",
+      "dialog_node": "response_5_1595421242526"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "What is the command you wanna issue?"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "slot_8_1595389094929",
+      "event_name": "focus",
+      "dialog_node": "handler_6_1595389094972",
+      "previous_sibling": "handler_1_1595389094972"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_8_1595389094929",
+      "context": {
+        "command": "@general_uss_command"
+      },
+      "conditions": "@general_uss_command",
+      "event_name": "input",
+      "dialog_node": "handler_1_1595389094972"
+    },
+    {
+      "type": "slot",
+      "parent": "node_9_1595389070420",
+      "variable": "$command",
+      "dialog_node": "slot_8_1595389094929",
+      "previous_sibling": "node_8_1595421235567"
+    },
+    {
+      "type": "standard",
+      "title": "webhook uss command",
+      "parent": "node_9_1595389070420",
+      "actions": [
+        {
+          "name": "main_webhook",
+          "type": "webhook",
+          "parameters": {
+            "command": "$command",
+            "intention": "USS_COMMAND"
+          },
+          "result_variable": "webhook_uss_command"
+        }
+      ],
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "$command",
+      "dialog_node": "node_8_1595421235567"
+    },
+    {
+      "type": "slot",
+      "parent": "node_7_1595370447054",
+      "variable": "$command",
+      "dialog_node": "slot_7_1595370766593",
+      "previous_sibling": "node_6_1595419838977"
+    },
+    {
+      "type": "standard",
+      "title": "webhook for mvs command",
+      "parent": "node_7_1595370447054",
+      "actions": [
+        {
+          "name": "main_webhook",
+          "type": "webhook",
+          "parameters": {
+            "command": "$command",
+            "intention": "MVS_COMMAND"
+          },
+          "result_variable": "webhook_mvs_command"
+        }
+      ],
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "$command",
+      "dialog_node": "node_6_1595419838977"
+    },
+    {
+      "type": "frame",
+      "title": "Check Page Datasets",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Issuing D ASM.... one moment..."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "context": {
+        "command": "D ASM"
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_6_1595419838977"
+      },
+      "conditions": "@asm_command || #check_asm",
+      "dialog_node": "node_9_1595370412092",
+      "previous_sibling": "node_2_1595370264499"
+    },
+    {
+      "type": "frame",
+      "title": "Issue General Command",
+      "output": {
+        "generic": [
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "context": {},
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_6_1595419838977"
+      },
+      "conditions": "#issue_general_command",
+      "dialog_node": "node_7_1595370447054",
+      "previous_sibling": "node_9_1595370412092"
+    },
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I didn't understand. You can try rephrasing."
+              },
+              {
+                "text": "Can you reword your statement? I'm not understanding."
+              },
+              {
+                "text": "I didn't get your meaning."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_1_1595388810344",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "frame",
+      "title": "Issue USS Command",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Let me check..."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_8_1595421235567"
+      },
+      "conditions": "#send_uss_command",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_9_1595389070420",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "frame",
+      "title": "Check Spool",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Issuing $DSPL.... one moment..."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "context": {
+        "command": "\\$DSPL"
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_6_1595419838977"
+      },
+      "conditions": "@spool_command || #check_spool",
+      "dialog_node": "node_2_1595370264499",
+      "previous_sibling": "node_9_1595389070420"
+    },
+    {
+      "type": "frame",
+      "context": {},
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_3_1595422306651"
+      },
+      "conditions": "#check_dataset_content",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_1_1595388810344",
+      "previous_sibling": "node_7_1595370447054"
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello. How can I help you?"
+              },
+              {
+                "text": "Hi There! What are you looking for?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "welcome",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "system_entities": {
+      "enabled": true
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "My first skill",
+  "language": "en",
+  "description": ""
+}

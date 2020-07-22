@@ -1,0 +1,27 @@
+@startuml
+actor User
+boundary Slack
+box IBMCloud #LightBlue
+entity WatsonAssistant
+control ZoweController
+end box
+entity zOSMF
+User -> Slack : Initialize flow
+Slack -> WatsonAssistant : sendMessage()
+WatsonAssistant -> WatsonAssistant : Intents()
+  note right
+    Spool
+    ASM
+    Parmlib
+    HFS
+    MVS Command
+  end note
+WatsonAssistant -> WatsonAssistant : Entities()
+WatsonAssistant -> ZoweController : WebHook()
+ZoweController -> zOSMF : DispatchRequest()
+zOSMF -> ZoweController : Results
+ZoweController -> WatsonAssistant : FormatAnswer()
+WatsonAssistant -> Slack : sendMessage()
+Slack -> User : DisplayMessages
+
+@enduml
